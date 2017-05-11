@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="se.findyourhome.findyourhomeapp.DisplayMetaActivity">
+
+    <TextView
+        android:id="@+id/netStatView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextA"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countView"
+        app:layout_constraintBottom_toTopOf="@+id/respView" />
+
+    <TextView
+        android:id="@+id/respView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextA"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/netStatView" />
+
+    <TextView
+        android:id="@+id/countView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextA"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/netStatView"
+        app:layout_constraintTop_toBottomOf="@+id/toListingsButton" />
+
+    <Button
+        android:id="@+id/toListingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="toListings"
+        android:text="Show Listings"
+        app:layout_constraintBottom_toTopOf="@+id/countView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
