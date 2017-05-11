@@ -32,7 +32,7 @@
         <activity android:name=".DisplayMetaActivity" />
 
         <service
-            android:name=".FetchListingsIntentService"
+            android:name=".FetchListingsService"
             android:exported="false"></service>
     </application>
 

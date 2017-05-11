@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     /** Called when the button is tapped */
     public void updateListings(View view) {
-        System.out.println("DBG: Starting FetchListingsIntentService");
-        Intent updateIntent = new Intent(this, FetchListingsIntentService.class);
+        System.out.println("DBG: Starting FetchListingsService");
+        Intent updateIntent = new Intent(this, FetchListingsService.class);
         startService(updateIntent);
     }
 
