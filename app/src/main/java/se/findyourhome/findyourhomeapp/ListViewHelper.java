@@ -97,6 +97,8 @@ class ListingArrayAdapter extends ArrayAdapter<ListingStruct> {
             ));
         }
 
+        entryView.setTag(listing.url);
+
         return entryView;
     }
 }
