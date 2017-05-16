@@ -37,7 +37,8 @@
             android:name=".FetchListingsService"
             android:exported="false" />
 
-        <activity android:name=".ListingDetailsActivity"></activity>
+        <activity android:name=".ListingDetailsActivity" />
+        <activity android:name=".DisplayFavoritesActivity"></activity>
     </application>
 
 </manifest>

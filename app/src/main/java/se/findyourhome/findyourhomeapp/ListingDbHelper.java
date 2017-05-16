@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class ListingDbHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 7;
     public static final String DATABASE_NAME = "Listing.db";
 
 
@@ -18,6 +18,7 @@ public class ListingDbHelper extends SQLiteOpenHelper {
     private void resetDb(SQLiteDatabase db) {
         System.out.println("DBG: Resetting DB");
         db.execSQL(ListingDbContract.SQL_DELETE_LISTINGS);
+        db.execSQL(ListingDbContract.SQL_DELETE_FAVORITES);
         onCreate(db);
     }
 
@@ -25,6 +26,7 @@ public class ListingDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(ListingDbContract.SQL_CREATE_LISTINGS);
+        db.execSQL(ListingDbContract.SQL_CREATE_FAVORITES);
     }
 
     @Override
