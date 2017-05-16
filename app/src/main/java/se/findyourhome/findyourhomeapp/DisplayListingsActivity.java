@@ -62,7 +62,15 @@ public class DisplayListingsActivity extends AppCompatActivity {
 
         viewHelper = new ListViewHelper(this, R.layout.listing_entryimg_view, listView);
 
-        viewHelper.getListView().setOnItemClickListener(new ListingEntryClickListener());
+        viewHelper.getListView().setOnItemClickListener(new ShowDetailsOnClick(this));
+
+        Intent intent = new Intent(this, DisplayFavoritesActivity.class);
+        ChangeActivityOnSwipe changeToMainOnSwipe = new ChangeActivityOnSwipe(
+                ChangeActivityOnSwipe.SwipeDirection.LEFT,
+                this,
+                intent
+        );
+        viewHelper.getListView().setOnTouchListener(changeToMainOnSwipe);
     }
 
     /**
@@ -129,18 +137,6 @@ public class DisplayListingsActivity extends AppCompatActivity {
         }
     }
 
-
-    private class ListingEntryClickListener implements AdapterView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            String listingUrl = (String) view.getTag();
-
-            Intent detailIntent = new Intent(DisplayListingsActivity.this, ListingDetailsActivity.class);
-            detailIntent.putExtra(ListingDetailsActivity.URL_EXTRA_ARG, listingUrl);
-
-            startActivity(detailIntent);
-        }
-    }
 
 }
 

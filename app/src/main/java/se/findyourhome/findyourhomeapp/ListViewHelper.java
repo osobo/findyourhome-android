@@ -34,8 +34,17 @@ public class ListViewHelper {
         this.listView.setAdapter(this.adapter);
     }
 
+    public void removeAll() {
+        listings.clear();
+    }
+
     public void update(ListingStruct[] newListings) {
         listings.addAll(Arrays.asList(newListings));
+        adapter.notifyDataSetChanged();
+    }
+
+    public void update(ListingStruct newListing) {
+        listings.add(newListing);
         adapter.notifyDataSetChanged();
     }
 
