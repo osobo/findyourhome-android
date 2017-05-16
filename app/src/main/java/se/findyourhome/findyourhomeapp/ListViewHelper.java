@@ -67,7 +67,10 @@ class ListingArrayAdapter extends ArrayAdapter<ListingStruct> {
      * - addressView: TextView
      * - priceView: TextView
      * - pubDateView: TextView
-     * - imgView: (ImageView?)
+     * - imgView: ImageView
+     * - contractView: TextView
+     * - areaView: TextView
+     * - sizeView: TextView
      */
     ListingArrayAdapter(Activity ctx, int layoutResource, List<ListingStruct> listings) {
         super(ctx, 0, listings);
@@ -86,6 +89,9 @@ class ListingArrayAdapter extends ArrayAdapter<ListingStruct> {
         TextView priceView = (TextView) entryView.findViewById(R.id.priceView);
         TextView pubDateView = (TextView) entryView.findViewById(R.id.pubDateView);
         ImageView imgView = (ImageView) entryView.findViewById(R.id.imgView);
+        TextView contractView = (TextView) entryView.findViewById(R.id.contractView);
+        TextView areaView = (TextView) entryView.findViewById(R.id.areaView);
+        TextView sizeView = (TextView) entryView.findViewById(R.id.sizeView);
 
         if(adrView != null) { adrView.setText(listing.address); }
         if(priceView != null) { priceView.setText(listing.price); }
@@ -96,6 +102,9 @@ class ListingArrayAdapter extends ArrayAdapter<ListingStruct> {
                     listing.image.length
             ));
         }
+        if(contractView != null) { contractView.setText(listing.contract); }
+        if(areaView != null) { areaView.setText(listing.area); }
+        if(sizeView != null) { sizeView.setText(listing.size); }
 
         entryView.setTag(listing.url);
 

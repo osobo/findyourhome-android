@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.LinkedList;
 
 public class ListingStruct {
-    public String url, address, price, pubDate;
+    public String url, address, price, pubDate, contract, area, size;
     public int seqNumber;
     byte[] image;
 
@@ -123,13 +123,16 @@ public class ListingStruct {
     }
 
     public ListingStruct(String url, int seqNumber, String address, String price, String pubDate,
-            byte[] image) {
+            byte[] image, String contract, String area, String size) {
         this.url = url;
         this.seqNumber = seqNumber;
         this.address = address;
         this.price = price;
         this.pubDate = pubDate;
         this.image = image;
+        this.contract = contract;
+        this.area = area;
+        this.size = size;
     }
 
     public ListingStruct(Cursor c) {
@@ -138,7 +141,10 @@ public class ListingStruct {
                 optStringFromCursor(c, ListingDbContract.Listing.COLUMN_NAME_ADDRESS),
                 optStringFromCursor(c, ListingDbContract.Listing.COLUMN_NAME_PRICE),
                 optStringFromCursor(c, ListingDbContract.Listing.COLUMN_NAME_PUB_DATE),
-                optByteArrayFromCursor(c, ListingDbContract.Listing.COLUMN_NAME_IMAGE)
+                optByteArrayFromCursor(c, ListingDbContract.Listing.COLUMN_NAME_IMAGE),
+                optStringFromCursor(c, ListingDbContract.Listing.COLUMN_NAME_CONTRACT),
+                optStringFromCursor(c, ListingDbContract.Listing.COLUMN_NAME_AREA),
+                optStringFromCursor(c, ListingDbContract.Listing.COLUMN_NAME_SIZE)
         );
     }
 
@@ -150,7 +156,10 @@ public class ListingStruct {
                 jObj.optString("addess"),
                 jObj.optString("price"),
                 jObj.optString("publishedDate"),
-                blobFromUrl(jObj.optString("imageUrl"))
+                blobFromUrl(jObj.optString("imageUrl")),
+                jObj.optString("contract"),
+                jObj.optString("area"),
+                jObj.optString("size")
 
         );
     }
@@ -164,6 +173,9 @@ public class ListingStruct {
         ret.put(ListingDbContract.Listing.COLUMN_NAME_PRICE, price);
         ret.put(ListingDbContract.Listing.COLUMN_NAME_PUB_DATE, pubDate);
         ret.put(ListingDbContract.Listing.COLUMN_NAME_IMAGE, image);
+        ret.put(ListingDbContract.Listing.COLUMN_NAME_CONTRACT, contract);
+        ret.put(ListingDbContract.Listing.COLUMN_NAME_AREA, area);
+        ret.put(ListingDbContract.Listing.COLUMN_NAME_SIZE, size);
 
         return ret;
     }

@@ -16,6 +16,9 @@ public final class ListingDbContract {
         public static final String COLUMN_NAME_PRICE = "price";
         public static final String COLUMN_NAME_PUB_DATE = "pubDate";
         public static final String COLUMN_NAME_IMAGE = "image";
+        public static final String COLUMN_NAME_CONTRACT = "contract";
+        public static final String COLUMN_NAME_AREA = "area";
+        public static final String COLUMN_NAME_SIZE = "size";
     }
 
     public static final String SQL_CREATE_LISTINGS =
@@ -26,7 +29,10 @@ public final class ListingDbContract {
         Listing.COLUMN_NAME_ADDRESS + " TEXT," +
         Listing.COLUMN_NAME_PRICE + " TEXT," +
         Listing.COLUMN_NAME_PUB_DATE + " TEXT," +
-        Listing.COLUMN_NAME_IMAGE + " BLOB)";
+        Listing.COLUMN_NAME_IMAGE + " BLOB," +
+        Listing.COLUMN_NAME_CONTRACT + " TEXT," +
+        Listing.COLUMN_NAME_AREA + " TEXT," +
+        Listing.COLUMN_NAME_SIZE + " TEXT)";
 
     public static final String SQL_DELETE_LISTINGS =
         "DROP TABLE IF EXISTS " + Listing.TABLE_NAME;

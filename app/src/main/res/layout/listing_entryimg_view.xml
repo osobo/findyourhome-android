@@ -8,7 +8,7 @@
     android:descendantFocusability="blocksDescendants"> <!-- To make sure the list item is clickable-->
 
     <TextView
-        android:id="@+id/addressView"
+        android:id="@+id/areaView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

@@ -60,10 +60,9 @@ public class ListingDetailsActivity extends AppCompatActivity {
             addressView.setText(listing.address);
             priceView.setText(listing.price + " / month");
             pubDateView.setText(listing.pubDate);
-            // TODO
-            sizeView.setText("TMP 2 rum");
-            areaView.setText("TMP område");
-            contractView.setText("TMP Andrahand");
+            sizeView.setText(listing.size);
+            areaView.setText(listing.area);
+            contractView.setText(listing.contract);
         }
 
         db.close();
