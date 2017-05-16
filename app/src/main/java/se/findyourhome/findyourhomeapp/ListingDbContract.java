@@ -41,6 +41,19 @@ public final class ListingDbContract {
 
 
 
+    public static class Favorite implements BaseColumns {
+        public static final String TABLE_NAME = "favorite";
+
+        public static final String COLUMN_NAME_URL = "url";
+    }
+
+    public static final String SQL_CREATE_FAVORITES =
+            "CREATE TABLE " + Favorite.TABLE_NAME + " (" +
+                    Favorite._ID + " INTEGER PRIMARY KEY," +
+                    Favorite.COLUMN_NAME_URL + " TEXT NOT NULL UNIQUE)";
+
+    public static final String SQL_DELETE_FAVORITES =
+            "DROP TABLE IF EXISTS " + Favorite.TABLE_NAME;
 
 
 
