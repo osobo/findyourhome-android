@@ -1,11 +1,19 @@
 package se.findyourhome.findyourhomeapp;
 
 
+import android.app.AlarmManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 
@@ -13,7 +21,6 @@ public class DisplayListingsActivity extends AppCompatActivity {
 
     /*
      * TODO: Data should be queried from db and added to screen in seperate thread!
-     * TODO: Also, maybe load only some (say 20) listings at a time.
      */
 
     /**
@@ -29,18 +36,33 @@ public class DisplayListingsActivity extends AppCompatActivity {
 
     private ListViewHelper viewHelper;
 
+    private BroadcastReceiver fetchUpdateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            System.out.println("DBG: Received broadcast.");
+            initLoadBatch(defaultBatchSize);
+            viewHelper.getListView().setOnScrollListener(new LoadOnScrollListener());
+            LocalBroadcastManager.getInstance(DisplayListingsActivity.this).unregisterReceiver(this);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_listings);
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(fetchUpdateReceiver,
+                new IntentFilter("db-ready"));
+        System.out.println("DBG: Started listening for broadcast.");
+
+        Intent fetchAndInsertIntent = new Intent(this, FetchListingsService.class);
+        startService(fetchAndInsertIntent);
+
         ListView listView = (ListView) findViewById(R.id.listingList);
 
         viewHelper = new ListViewHelper(this, R.layout.listing_entryimg_view, listView);
 
-        //loadBatch(-1, 1);
-        initLoadBatch(defaultBatchSize);
-        listView.setOnScrollListener(new LoadOnScrollListener());
+        viewHelper.getListView().setOnItemClickListener(new ListingEntryClickListener());
     }
 
     /**
@@ -104,6 +126,19 @@ public class DisplayListingsActivity extends AppCompatActivity {
             if(totalItemCount - (firstVisibleItem + visibleItemCount) <= defaultScrollMargin) {
                 loadBatch(defaultBatchSize);
             }
+        }
+    }
+
+
+    private class ListingEntryClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            String listingUrl = (String) view.getTag();
+
+            Intent detailIntent = new Intent(DisplayListingsActivity.this, ListingDetailsActivity.class);
+            detailIntent.putExtra(ListingDetailsActivity.URL_EXTRA_ARG, listingUrl);
+
+            startActivity(detailIntent);
         }
     }
 
