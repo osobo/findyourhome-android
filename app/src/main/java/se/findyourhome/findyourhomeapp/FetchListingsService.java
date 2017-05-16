@@ -89,7 +89,6 @@ public class FetchListingsService extends Service {
         boolean ret = false;
 
         JSONArray jArr = readAllJSON(conn);
-        System.out.println("DBG: Looping through " + jArr.length() + " jObjs");
         for(int i=0; i<jArr.length(); ++i) {
             JSONObject jObjListing = jArr.optJSONObject(i);
             if(jObjListing == null) {

@@ -12,12 +12,12 @@
         android:layout_height="wrap_content"
         android:text="Address:"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/addressView"
+        app:layout_constraintRight_toLeftOf="@+id/priceView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/priceLabelView" />
 
     <TextView
-        android:id="@+id/addressView"
+        android:id="@+id/priceView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -44,7 +44,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/priceLabelView"
         app:layout_constraintBottom_toTopOf="@+id/pubDateView"
-        app:layout_constraintTop_toBottomOf="@+id/addressView" />
+        app:layout_constraintTop_toBottomOf="@+id/priceView" />
 
     <TextView
         android:id="@+id/pubDateLabelView"

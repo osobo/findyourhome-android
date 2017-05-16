@@ -11,7 +11,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 
@@ -59,6 +61,8 @@ public class DisplayListingsActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listingList);
 
         viewHelper = new ListViewHelper(this, R.layout.listing_entryimg_view, listView);
+
+        viewHelper.getListView().setOnItemClickListener(new ListingEntryClickListener());
     }
 
     /**
@@ -122,6 +126,19 @@ public class DisplayListingsActivity extends AppCompatActivity {
             if(totalItemCount - (firstVisibleItem + visibleItemCount) <= defaultScrollMargin) {
                 loadBatch(defaultBatchSize);
             }
+        }
+    }
+
+
+    private class ListingEntryClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            String listingUrl = (String) view.getTag();
+
+            Intent detailIntent = new Intent(DisplayListingsActivity.this, ListingDetailsActivity.class);
+            detailIntent.putExtra(ListingDetailsActivity.URL_EXTRA_ARG, listingUrl);
+
+            startActivity(detailIntent);
         }
     }
 
