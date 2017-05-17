@@ -123,6 +123,7 @@ public class FetchListingsService extends Service {
                         .setSmallIcon(R.mipmap.notif_icon)
                         .setContentTitle("New listings available")
                         .setContentText("")
+                        .setAutoCancel(true)
                         .setContentIntent(pendingShowInfoIntent);
 
         NotificationManager notMgr = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
