@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -28,6 +29,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 
 
 public class FetchListingsService extends Service {
@@ -74,6 +76,24 @@ public class FetchListingsService extends Service {
         return a;
     }
 
+    private int getLatestLocalSeqNumber(SQLiteDatabase db) {
+        String query = "SELECT MAX(" + ListingDbContract.Listing.COLUMN_NAME_SEQ + ")" +
+            " FROM " + ListingDbContract.Listing.TABLE_NAME;
+
+        Cursor c = db.rawQuery(query, null);
+        if(c.getCount() != 1) {
+            System.out.println("DBG: Found no max seq number");
+            return 0;
+        }
+
+        if(!c.moveToFirst()) {
+            System.out.println("DBG: Couldn't read first of result for max seqNum.");
+            return 0;
+        }
+
+        return c.getInt(0);
+    }
+
     /**
      * Fetches new listings from server and inserts them into local db.
      * @param db The db to insert into.
@@ -81,7 +101,11 @@ public class FetchListingsService extends Service {
      * @throws IOException Thrown on network issues.
      */
     private boolean fetchAndInsert(SQLiteDatabase db) throws IOException {
-        URL url = new URL("http://findyourhome.se:2932/api?apikey=aKwo4vIzpEKSeE70kQG7yQoLAfHV2lPo");
+        int latestSeqNum = getLatestLocalSeqNumber(db);
+        System.out.println("DBG: fetchAndInsert(): lestesSeq=" + latestSeqNum);
+
+        String req = "api?apikey=aKwo4vIzpEKSeE70kQG7yQoLAfHV2lPo&seqfilter=gt:" + latestSeqNum;
+        URL url = new URL("http://findyourhome.se:2932/" + req);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.connect();
@@ -89,6 +113,11 @@ public class FetchListingsService extends Service {
         boolean ret = false;
 
         JSONArray jArr = readAllJSON(conn);
+        if(jArr == null) {
+            System.out.println("DBG: Go no json objects.");
+            return ret;
+        }
+        System.out.println("DBG: Got " + jArr.length() + " json objects.");
         for(int i=0; i<jArr.length(); ++i) {
             JSONObject jObjListing = jArr.optJSONObject(i);
             if(jObjListing == null) {
