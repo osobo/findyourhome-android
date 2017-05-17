@@ -74,6 +74,7 @@ public class ListingDetailsActivity extends AppCompatActivity {
         if(c.moveToFirst()) {
             // If we could move to first there was a result => The listing is a favorite.
             setFavoriteIcon();
+            isFavorite = true;
         }
         // Else: do nothing as the default is correct.
     }
@@ -119,6 +120,8 @@ public class ListingDetailsActivity extends AppCompatActivity {
         db.insert(ListingDbContract.Favorite.TABLE_NAME, null, cvs);
 
         db.close();
+
+        isFavorite = true;
     }
 
     private void unsetFavoriteStat() {
@@ -130,6 +133,8 @@ public class ListingDetailsActivity extends AppCompatActivity {
         db.delete(ListingDbContract.Favorite.TABLE_NAME, whereClause, null);
 
         db.close();
+
+        isFavorite = false;
     }
 
     private void onInvalidUrl() {
@@ -158,7 +163,6 @@ public class ListingDetailsActivity extends AppCompatActivity {
             setFavoriteIcon();
             setFavoriteStat();
         }
-        isFavorite = !isFavorite;
     }
 
     private class ToggleFavOnCLick implements View.OnClickListener {
