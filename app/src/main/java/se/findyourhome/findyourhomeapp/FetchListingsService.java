@@ -105,7 +105,7 @@ public class FetchListingsService extends Service {
         System.out.println("DBG: fetchAndInsert(): lestesSeq=" + latestSeqNum);
 
         String req = "api?apikey=aKwo4vIzpEKSeE70kQG7yQoLAfHV2lPo&seqfilter=gt:" + latestSeqNum;
-        URL url = new URL("http://findyourhome.se:2932/" + req);
+        URL url = new URL("https://findyourhome.se:2933/" + req);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.connect();

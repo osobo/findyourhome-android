@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import java.util.List;
-
 public class DisplayFavoritesActivity extends AppCompatActivity {
 
     private ListViewHelper viewHelper;

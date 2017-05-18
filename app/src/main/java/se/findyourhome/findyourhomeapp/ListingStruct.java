@@ -179,6 +179,10 @@ public class ListingStruct {
 
         return ret;
     }
+
+    public String pubDateString() {
+        return pubDate.substring(0, 10);
+    }
 }
 
 class Buffer {
