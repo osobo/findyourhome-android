@@ -103,8 +103,8 @@ class ListingArrayAdapter extends ArrayAdapter<ListingStruct> {
         TextView sizeView = (TextView) entryView.findViewById(R.id.sizeView);
 
         if(adrView != null) { adrView.setText(listing.address); }
-        if(priceView != null) { priceView.setText(listing.price); }
-        if(pubDateView != null) { pubDateView.setText(listing.pubDate); }
+        if(priceView != null) { priceView.setText(listing.price + " / month"); }
+        if(pubDateView != null) { pubDateView.setText(listing.pubDateString()); }
         if(imgView != null) {
             imgView.setImageBitmap(BitmapFactory.decodeByteArray(   listing.image,
                     0,
